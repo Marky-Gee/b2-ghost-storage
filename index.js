@@ -9,7 +9,6 @@ var fs = require('fs'),
     request = Promise.promisify(require("request")),
     readFileAsync = Promise.promisify(fs.readFile);
 
-
 class Store extends BaseStore {
     constructor(config) {
         super(config);
@@ -19,7 +18,7 @@ class Store extends BaseStore {
             accountId: this.config.accountId,
             applicationKey: this.config.applicationKey
         });
-
+        this.useDatedFolder = this.config.useDatedFolder;
         this.subFolder = (this.config.subFolder)? this.config.subFolder+"/" : ""
 
         this.client.authorize().then((data) => {
@@ -30,7 +29,6 @@ class Store extends BaseStore {
     }
 
     delete(fileName, targetDir) {
-        return Promise.reject("Not implemented");
     }
 
     exists(filename, targetDir) {
@@ -44,8 +42,6 @@ class Store extends BaseStore {
     }
 
     save(image, targetDir) {
-        console.log("Target Directory = : ", targetDir);
-        console.log("Image = : ", image.originalname);
         const directory = targetDir || this.getTargetDir(this.pathPrefix)
         var self = this;
 
@@ -55,17 +51,11 @@ class Store extends BaseStore {
                 this.getUniqueFileName(image, directory)
             ])
             .then(([file, filename]) => {
-                console.log("fileName: " + util.inspect(filename))
                 this.file = file;
-                console.log("targetFilename: " + util.inspect(this.file))
-                this.targetFilename = this.subFolder + filename.replace(/\\/g,"/");
+                
+                this.targetFilename = (this.useDatedFolder)? this.subFolder + filename.replace(/\\/g,"/") : this.subFolder + image.originalname.replace(/\\/g,"/");
                  self.client.authorize().then((data) => {
-                    console.log("auth success");
-                    console.log("downloadUrl: " +util.inspect(self.downloadUrl));;
                     self.client.getUploadUrl(self.config.bucketId).then((obj) => {
-                        console.log("uploadUrl: " +util.inspect(obj.data.uploadUrl));
-                        console.log("uploadAuthToken: " +util.inspect(obj.data.authorizationToken));
-                        console.log("filename: " +util.inspect(self.targetFilename));
                         self.client.uploadFile({
                             uploadUrl: obj.data.uploadUrl,
                             uploadAuthToken: obj.data.authorizationToken,

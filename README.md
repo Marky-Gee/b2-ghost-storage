@@ -2,10 +2,10 @@
 
 This library works with current version of Ghost 2.x.x
 
+B2 Ghost Storage allows ghost to save images to Backblaze B2, with options of creating subfolders in their B2 buckets and if the files are saved using /Year/Month/Filename.png or just filename.png
+
 
 # Installation
-
-## Installation
 
 Via NPM
 ```
@@ -35,7 +35,8 @@ Add this in `config."GHOST_ENVIRONMENT".js` file
 		"applicationKey": "MASTER_APPLICATION_KEY",
 		"bucketId": "YOUR_BUCKET_ID",
 		"bucketName": "YOUR_BUCKET_NAME",
-		"subFolder": "OPTIONAL_SUBFOLDER"
+		"subFolder": "OPTIONAL_SUBFOLDER",
+		"useDatedFolder":TRUE_OR_FALSE
 	}
 }
 ```
