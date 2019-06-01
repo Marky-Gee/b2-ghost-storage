@@ -11,7 +11,7 @@ Via NPM
 ```
 npm i b2-ghost-storage
 mkdir  -p  ./content/adapters/storage
-cp  -r  ./node_modules/ghost-storage-adapter-b2  ./content/adapters/storage/b2-ghost-storage
+cp  -r  ./node_modules/b2-ghost-storage  ./content/adapters/storage/b2-ghost-storage
 ```
 
 Via GIT
