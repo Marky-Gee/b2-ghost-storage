@@ -1,5 +1,7 @@
 #  Backblaze(B2) - Ghost Storage 
 
+![npm](https://img.shields.io/npm/dt/b2-ghost-storage.svg)
+
 This library works with current version of Ghost 2.x.x
 
 B2 Ghost Storage allows ghost to save images to Backblaze B2, with options of creating subfolders in their B2 buckets and if the files are saved using /Year/Month/Filename.png or just filename.png
